@@ -129,7 +129,12 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void Move() {
+    private void Move()
+    {
+        
+    }
+
+    private void MoveOld() {
         LayerMask wallMask = LayerMask.GetMask("Wall");
         LayerMask groundMask = LayerMask.GetMask("Ground");
 

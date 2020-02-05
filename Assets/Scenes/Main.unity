@@ -195,7 +195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325727214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.81, z: 0}
+  m_LocalPosition: {x: -0.36, y: -8.18, z: 0}
   m_LocalScale: {x: 159.45714, y: 25.175001, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -323,7 +323,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -475,14 +475,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0}
   Movement: {x: 0, y: 0}
-  Speed: 10
+  GroundSpeed: 01.60
+  AccelSpeed: 00.20
+  decelSpeed: 00.80
+  AirSpeed: 01.50
+  JumpPower: 04.DF
+  MinJump: 02.1F
+  JumpCancelSpeed: 01.00
+  MaxFallSpeed: 0C.00
+  ClimbSpeed: 00.C0
+  Gravity: 00.40
   Stunned: 0
   OnGround: 0
   Jumping: 0
   floatHeight: 1
   liftForce: 100
   damping: 0
-  gravityAcceleration: -0.25
   shape: {x: 1, y: 1}
   corners:
   - position: {x: -0.7, y: 0.7}
@@ -524,7 +532,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581457269}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2077139823}
@@ -3304,7 +3312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077139821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5555556, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 1581457270}
