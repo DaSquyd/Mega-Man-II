@@ -61,14 +61,14 @@ public class Player : MonoBehaviour {
     private void Start() {
         col = GetComponent<BoxCollider2D>();
 
-        Debug.Log("Ground Speed: " + Convert(GroundSpeed, false));
-        Debug.Log("Air Speed: " + Convert(AirSpeed, false));
-        Debug.Log("Jump Power: " + Convert(JumpPower, true));
-        Debug.Log("Min Jump: " + Convert(MinJump, false));
-        Debug.Log("Jump Cancel Speed: " + Convert(JumpCancelSpeed, false));
-        Debug.Log("Max Fall Speed: " + Convert(MaxFallSpeed, false));
-        Debug.Log("Climb Speed: " + Convert(ClimbSpeed, false));
-        Debug.Log("Gravity: " + Convert(Gravity, true));
+        Debug.Log("Ground Speed: " + Convert(GroundSpeed, 1f, false));
+        Debug.Log("Air Speed: " + Convert(AirSpeed, 1f, false));
+        Debug.Log("Jump Power: " + Convert(JumpPower, 1f, true));
+        Debug.Log("Min Jump: " + Convert(MinJump, 1f, false));
+        Debug.Log("Jump Cancel Speed: " + Convert(JumpCancelSpeed, 1f, false));
+        Debug.Log("Max Fall Speed: " + Convert(MaxFallSpeed, 1f, false));
+        Debug.Log("Climb Speed: " + Convert(ClimbSpeed, 1f, false));
+        Debug.Log("Gravity: " + Convert(Gravity, 1f, false));
     }
 
 
@@ -76,21 +76,23 @@ public class Player : MonoBehaviour {
 
         Controls();
 
-        Move();
-
         if (GameHandler.FrameStepping && !GameHandler.Step)
             return;
+
+
+        Move();
+
 
         transform.Translate(Movement);
         if (!OnGround) {
             Velocity -= new Vector2(0f, Convert(Gravity));
         } else {
-            Velocity = new Vector2(Velocity.x, 0f);
+            Velocity = new Vector2(Velocity.x, -Convert(Gravity));
         }
-
     }
 
-    private void Controls() {
+    private void Controls()
+    {
         if (Stunned)
             return;
 
@@ -98,22 +100,30 @@ public class Player : MonoBehaviour {
 
         int dir = GameHandler.vc.Right.IntValue - GameHandler.vc.Left.IntValue;
 
-        if (Mathf.Abs(dir) == 1 && dir != oldDir) {
-            if (accelCount < 7) {
+        if (Mathf.Abs(dir) == 1 && dir != oldDir)
+        {
+            if (accelCount < 7)
+            {
                 moveSpeed = Convert(AccelSpeed);
                 accelCount++;
             }
-        } else {
+        }
+        else
+        {
             accelCount = 0;
         }
 
-        if (dir == 0 && Mathf.Abs(oldDir) == 1) {
-            if (decelCount < 8) {
+        if (dir == 0 && Mathf.Abs(oldDir) == 1)
+        {
+            if (decelCount < 8)
+            {
                 dir = oldDir;
                 moveSpeed = Convert(decelSpeed);
                 decelCount++;
             }
-        } else {
+        }
+        else
+        {
             decelCount = 0;
         }
 
@@ -121,17 +131,71 @@ public class Player : MonoBehaviour {
 
         Velocity = new Vector2(dir * moveSpeed, Velocity.y);
 
-        if (OnGround && GameHandler.vc.A.Press) {
+        if (OnGround && GameHandler.vc.A.Press)
+        {
             Velocity = new Vector2(Velocity.x, Convert(JumpPower));
             Debug.Log(Convert(JumpPower));
             OnGround = false;
             Jumping = true;
         }
+
+        if (Movement.y > Convert(MinJump) && !GameHandler.vc.A.Value && Jumping)
+        {
+            Debug.Log("Jump Cancelled");
+            Movement = new Vector2(Movement.x, Convert(JumpCancelSpeed));
+            Velocity = new Vector2(Velocity.x, Convert(JumpCancelSpeed));
+            Jumping = false;
+        }
+
+        if (Movement.y < 0f)
+            Jumping = false;
     }
 
-    private void Move()
+    void Move()
     {
-        
+        LayerMask mask = LayerMask.GetMask("Ground");
+
+        OnGround = false;
+
+        Movement = new Vector2();
+
+        Vector2 position = transform.position;
+
+        Vector2 up = Vector2.up * Mathf.Max(Velocity.y, 0f);
+
+        for (int i = 0; i <= 4; i++)
+        {
+            Vector2 rayPos = new Vector2((position.x - 7f / 16f) + (i / 4f * 14f / 16f), position.y + 1f);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayPos, up, up.magnitude, mask);
+
+            if (hit.collider != null && hit.distance < up.magnitude)
+            {
+                up = new Vector2(0f, hit.distance);
+                Velocity = new Vector2(Velocity.x, -Convert(Gravity));
+            }
+        }
+
+
+        Vector2 down = Vector2.up * Mathf.Min(Velocity.y, 0f);
+
+        for (int i = 0; i <= 4; i++)
+        {
+            Vector2 rayPos = new Vector2((position.x - 7f / 16f) + (i / 4f * 14f / 16f), position.y - 1f);
+
+            RaycastHit2D hit = Physics2D.Raycast(rayPos, down, down.magnitude, mask);
+
+            if (hit.collider != null && hit.distance < down.magnitude)
+            {
+                down = new Vector2(0f, -hit.distance);
+                Velocity = new Vector2(Velocity.x, 0f);
+                OnGround = true;
+            }
+        }
+
+        Movement = up + down;
+
+        Debug.DrawRay(position + Vector2.down, down, Color.cyan, Time.fixedDeltaTime);
     }
 
     private void MoveOld() {
@@ -183,15 +247,15 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private float Convert(string hex, bool divideByPixels = true) {
+    private float Convert(string hex, float multiply = 2f, bool divideByPixels = true) {
         string[] segments = hex.Split('.');
 
         float first = int.Parse(segments[0], System.Globalization.NumberStyles.HexNumber);
         float last = int.Parse(segments[1], System.Globalization.NumberStyles.HexNumber) / 256f;
 
         if (divideByPixels)
-            return (first + last) / PIXELS;
+            return (first + last) / PIXELS * multiply;
         else
-            return first + last;
+            return first + last * multiply;
     }
 }
