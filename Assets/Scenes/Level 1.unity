@@ -3387,18 +3387,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.031092077, y: 0.010572165}
+  m_Offset: {x: 0, y: 0.75}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.1875}
     oldSize: {x: 2, y: 2}
-    newSize: {x: 0.32, y: 0.32}
+    newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.56869084, y: 1.6333165}
+  m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
 --- !u!212 &769802975
 SpriteRenderer:
@@ -3438,12 +3438,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 82cb60dc42c8e8d459bbfa0e293c788d, type: 3}
+  m_Sprite: {fileID: 4790330767113075071, guid: 5156b1fefd7946d42b866ed5e4ef14a2,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3458,7 +3459,7 @@ Transform:
   m_GameObject: {fileID: 769802972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.38, y: -1.23, z: 0}
-  m_LocalScale: {x: 0.94552654, y: 0.94552654, z: 0.094552666}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -3477,6 +3478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0}
   Movement: {x: 0, y: 0}
+  Facing: 0
   GroundSpeed: 01.60
   AccelSpeed: 00.20
   decelSpeed: 00.80
@@ -3487,26 +3489,12 @@ MonoBehaviour:
   MaxFallSpeed: 0C.00
   ClimbSpeed: 00.C0
   Gravity: 00.40
+  DetectionBufferH: 0
+  DetectionBufferV: 0
   Stunned: 0
   OnGround: 0
   Jumping: 0
-  floatHeight: 1
-  liftForce: 100
-  damping: 0
-  shape: {x: 1, y: 1}
-  corners:
-  - position: {x: -0.7, y: 0.7}
-    directionX: 0
-    directionY: 0
-  - position: {x: 0.7, y: 0.7}
-    directionX: 1
-    directionY: 0
-  - position: {x: -0.7, y: -0.7}
-    directionX: 0
-    directionY: 1
-  - position: {x: 0.7, y: -0.7}
-    directionX: 1
-    directionY: 1
+  Shooting: 0
 --- !u!1001 &846361292
 PrefabInstance:
   m_ObjectHideFlags: 0
