@@ -51,8 +51,8 @@ public class GameHandler : MonoBehaviour {
     }
 
     private void Controls() {
-        SetControlOutput(ref vc.A, KeyCode.X, "Jump");
-        SetControlOutput(ref vc.B, KeyCode.Z, "Shoot");
+        SetControlOutput(ref vc.A, KeyCode.X, "A");
+        SetControlOutput(ref vc.B, KeyCode.Z, "B");
         SetControlOutput(ref vc.Left, KeyCode.LeftArrow, "Horizontal", true);
         SetControlOutput(ref vc.Right, KeyCode.RightArrow, "Horizontal", false);
         SetControlOutput(ref vc.Up, KeyCode.UpArrow, "Vertical", true);

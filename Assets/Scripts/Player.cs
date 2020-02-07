@@ -50,11 +50,11 @@ public class Player : MonoBehaviour {
     // Private Vars
     int oldDir;
     int dirLock;
-    bool maxSpeed;
+    public bool maxSpeed;
     int accelCount;
-    int decelCount;
+    public int decelCount;
     bool accelerating;
-    bool decelerating;
+    public bool decelerating;
 
     int shootCount;
 
@@ -107,11 +107,6 @@ public class Player : MonoBehaviour {
         if (dir != 0 && dir != oldDir)
             accelerating = true;
 
-        if (dir == 0) {
-            accelerating = false;
-            maxSpeed = false;
-        }
-
         if (accelerating) {
             if (accelCount < 7) {
                 moveSpeed = Convert(AccelSpeed);
@@ -127,9 +122,6 @@ public class Player : MonoBehaviour {
         if (dir == 0 && oldDir != 0 && maxSpeed)
             decelerating = true;
 
-        if (dir != 0)
-            decelerating = false;
-
         if (decelerating) {
             if (decelCount < 8) {
                 dir = oldDir;
@@ -141,6 +133,14 @@ public class Player : MonoBehaviour {
         } else {
             decelCount = 0;
         }
+
+        if (dir == 0) {
+            accelerating = false;
+            maxSpeed = false;
+        }
+
+        if (dir != 0)
+            decelerating = false;
 
         oldDir = dir;
 
@@ -164,7 +164,7 @@ public class Player : MonoBehaviour {
             Jumping = false;
 
 
-        if (Input.GetButton("Shoot")) {
+        if (GameHandler.vc.B.Press) {
             Shooting = true;
             shootCount = 0;
         }
