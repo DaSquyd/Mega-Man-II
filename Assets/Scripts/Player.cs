@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
     public Vector2 Velocity;
     public Vector2 Movement;
 
+    public DirectionH Facing;
+
     public string GroundSpeed;
     public string AccelSpeed;
     public string decelSpeed;
@@ -37,17 +39,13 @@ public class Player : MonoBehaviour {
     public string ClimbSpeed;
     public string Gravity;
 
+    public float DetectionBufferH;
+    public float DetectionBufferV;
+
     public bool Stunned;
     public bool OnGround;
     public bool Jumping;
-
-    public float floatHeight;
-    public float liftForce;
-    public float damping;
-
-    public Vector2 shape;
-
-    public List<Corner> corners;
+    public bool Shooting;
 
     // Private Vars
     int oldDir;
@@ -55,10 +53,18 @@ public class Player : MonoBehaviour {
     bool maxSpeed;
     int accelCount;
     int decelCount;
+    bool accelerating;
+    bool decelerating;
 
+    int shootCount;
+
+    SpriteRenderer spriteRenderer;
+    Animator animator;
     BoxCollider2D col;
 
     private void Start() {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         col = GetComponent<BoxCollider2D>();
 
         Debug.Log("Ground Speed: " + Convert(GroundSpeed, 1f, false));
@@ -76,12 +82,11 @@ public class Player : MonoBehaviour {
 
         Controls();
 
-        if (GameHandler.FrameStepping && !GameHandler.Step)
-            return;
-
-
         Move();
 
+
+        if (GameHandler.FrameStepping && !GameHandler.Step)
+            return;
 
         transform.Translate(Movement);
         if (!OnGround) {
@@ -91,8 +96,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void Controls()
-    {
+    private void Controls() {
         if (Stunned)
             return;
 
@@ -100,30 +104,41 @@ public class Player : MonoBehaviour {
 
         int dir = GameHandler.vc.Right.IntValue - GameHandler.vc.Left.IntValue;
 
-        if (Mathf.Abs(dir) == 1 && dir != oldDir)
-        {
-            if (accelCount < 7)
-            {
+        if (dir != 0 && dir != oldDir)
+            accelerating = true;
+
+        if (dir == 0) {
+            accelerating = false;
+            maxSpeed = false;
+        }
+
+        if (accelerating) {
+            if (accelCount < 7) {
                 moveSpeed = Convert(AccelSpeed);
                 accelCount++;
+            } else {
+                accelerating = false;
+                maxSpeed = true;
             }
-        }
-        else
-        {
+        } else {
             accelCount = 0;
         }
 
-        if (dir == 0 && Mathf.Abs(oldDir) == 1)
-        {
-            if (decelCount < 8)
-            {
+        if (dir == 0 && oldDir != 0 && maxSpeed)
+            decelerating = true;
+
+        if (dir != 0)
+            decelerating = false;
+
+        if (decelerating) {
+            if (decelCount < 8) {
                 dir = oldDir;
                 moveSpeed = Convert(decelSpeed);
                 decelCount++;
+            } else {
+                decelerating = false;
             }
-        }
-        else
-        {
+        } else {
             decelCount = 0;
         }
 
@@ -131,16 +146,14 @@ public class Player : MonoBehaviour {
 
         Velocity = new Vector2(dir * moveSpeed, Velocity.y);
 
-        if (OnGround && GameHandler.vc.A.Press)
-        {
+        if (OnGround && GameHandler.vc.A.Press) {
             Velocity = new Vector2(Velocity.x, Convert(JumpPower));
             Debug.Log(Convert(JumpPower));
             OnGround = false;
             Jumping = true;
         }
 
-        if (Movement.y > Convert(MinJump) && !GameHandler.vc.A.Value && Jumping)
-        {
+        if (Movement.y > Convert(MinJump) && !GameHandler.vc.A.Value && Jumping) {
             Debug.Log("Jump Cancelled");
             Movement = new Vector2(Movement.x, Convert(JumpCancelSpeed));
             Velocity = new Vector2(Velocity.x, Convert(JumpCancelSpeed));
@@ -149,10 +162,41 @@ public class Player : MonoBehaviour {
 
         if (Movement.y < 0f)
             Jumping = false;
+
+
+        if (Input.GetButton("Shoot")) {
+            Shooting = true;
+            shootCount = 0;
+        }
+
+        if (Shooting) {
+            shootCount++;
+
+            if (shootCount >= 40) {
+                shootCount = 0;
+                Shooting = false;
+            }
+        }
+
+        if (Velocity.x > 0f)
+            Facing = DirectionH.RIGHT;
+        if (Velocity.x < 0f)
+            Facing = DirectionH.LEFT;
+
+        if (Facing == DirectionH.RIGHT)
+            spriteRenderer.flipX = false;
+
+        if (Facing == DirectionH.LEFT)
+            spriteRenderer.flipX = true;
+
+
+        animator.SetBool("Running", maxSpeed);
+        animator.SetBool("OnGround", OnGround);
+        animator.SetBool("Shooting", Shooting);
+        //animator.SetBool("Climbing", Climbing);
     }
 
-    void Move()
-    {
+    void Move() {
         LayerMask mask = LayerMask.GetMask("Ground");
 
         OnGround = false;
@@ -161,90 +205,88 @@ public class Player : MonoBehaviour {
 
         Vector2 position = transform.position;
 
-        Vector2 up = Vector2.up * Mathf.Max(Velocity.y, 0f);
 
-        for (int i = 0; i <= 4; i++)
-        {
-            Vector2 rayPos = new Vector2((position.x - 7f / 16f) + (i / 4f * 14f / 16f), position.y + 1f);
+        // UP
+        Vector2 up = Vector2.up * Mathf.Max(Velocity.y, 0f);
+        for (int i = 0; i <= 4; i++) {
+            Vector2 rayPos = new Vector2((position.x - 7f / 16f) + (i / 4f * 14f / 16f), position.y + (24f / 16f) + DetectionBufferV);
 
             RaycastHit2D hit = Physics2D.Raycast(rayPos, up, up.magnitude, mask);
 
-            if (hit.collider != null && hit.distance < up.magnitude)
-            {
+            if (hit.collider != null && hit.distance < up.magnitude) {
                 up = new Vector2(0f, hit.distance);
-                Velocity = new Vector2(Velocity.x, -Convert(Gravity));
+#if UNITY_EDITOR
+                if (!GameHandler.FrameStepping || (GameHandler.FrameStepping && GameHandler.Step))
+#endif
+                    Velocity = new Vector2(Velocity.x, -Convert(Gravity));
             }
+
+            Debug.DrawRay(rayPos, up, Color.cyan, Time.fixedDeltaTime);
         }
 
 
+        // DOWN
         Vector2 down = Vector2.up * Mathf.Min(Velocity.y, 0f);
-
-        for (int i = 0; i <= 4; i++)
-        {
-            Vector2 rayPos = new Vector2((position.x - 7f / 16f) + (i / 4f * 14f / 16f), position.y - 1f);
+        for (int i = 0; i <= 4; i++) {
+            Vector2 rayPos = new Vector2((position.x - 7f / 16f) + (i / 4f * 14f / 16f), position.y - DetectionBufferV);
 
             RaycastHit2D hit = Physics2D.Raycast(rayPos, down, down.magnitude, mask);
 
-            if (hit.collider != null && hit.distance < down.magnitude)
-            {
+            if (hit.collider != null && hit.distance < down.magnitude) {
                 down = new Vector2(0f, -hit.distance);
-                Velocity = new Vector2(Velocity.x, 0f);
                 OnGround = true;
+#if UNITY_EDITOR
+                if (!GameHandler.FrameStepping || (GameHandler.FrameStepping && GameHandler.Step))
+#endif
+                    Velocity = new Vector2(Velocity.x, 0f);
             }
+
+            Debug.DrawRay(rayPos, down, Color.cyan);
         }
 
-        Movement = up + down;
 
-        Debug.DrawRay(position + Vector2.down, down, Color.cyan, Time.fixedDeltaTime);
-    }
+        // RIGHT
+        Vector2 right = Vector2.right * Mathf.Max(0f, Velocity.x);
+        for (int i = 0; i <= 4; i++) {
+            Vector2 rayPos = new Vector2(position.x + (7f / 16f) + DetectionBufferH, position.y + (i / 4f * 24f / 16f));
 
-    private void MoveOld() {
-        LayerMask wallMask = LayerMask.GetMask("Wall");
-        LayerMask groundMask = LayerMask.GetMask("Ground");
+            RaycastHit2D hit = Physics2D.Raycast(rayPos, right, right.magnitude, mask);
 
-        Movement = new Vector2();
-        OnGround = false;
-
-        foreach (Corner c in corners) {
-            Vector2 position = (Vector2) transform.position + c.position;
-            Vector2 directionH = c.directionX == DirectionH.LEFT ? new Vector2(Mathf.Min(Velocity.x, 0f), 0f) : new Vector2(Mathf.Max(Velocity.x, 0f), 0f);
-            Vector2 directionV = c.directionY == DirectionV.DOWN ? new Vector2(0f, Mathf.Min(Velocity.y, 0f)) : new Vector2(0f, Mathf.Max(Velocity.y, 0f));
-
-            if (directionV.y < -Convert(MaxFallSpeed) / 2f)
-                directionV = new Vector2(0f, -Convert(MaxFallSpeed) / 2f);
-
-            RaycastHit2D hitH = Physics2D.Raycast(position, directionH.normalized, directionH.magnitude * 2f, wallMask);
-            RaycastHit2D hitV = Physics2D.Raycast(position, directionV.normalized, directionV.magnitude * 2f, groundMask);
-
-            if (hitH.collider != null) {
-                directionH = hitH.normal * -hitH.distance;
-            }
-            if (hitV.collider != null) {
-                directionV = hitV.normal * -hitV.distance / 2f;
+            if (hit.collider != null && hit.distance < right.magnitude) {
+                right = new Vector2(hit.distance, 0f);
+#if UNITY_EDITOR
+                if (!GameHandler.FrameStepping || (GameHandler.FrameStepping && GameHandler.Step))
+#endif
+                    Velocity = new Vector2(0f, Velocity.y);
             }
 
-            Debug.Log(directionV);
-
-            Movement += (directionH + directionV);
-
-            if (Movement.y > Convert(MinJump) && !GameHandler.vc.A.Value && Jumping) {
-                Debug.Log("Jump Cancelled");
-                Movement = new Vector2(Movement.x, Convert(JumpCancelSpeed));
-                Velocity = new Vector2(Velocity.x, Convert(JumpCancelSpeed));
-                Jumping = false;
-            }
-
-            if (Movement.y < 0f)
-                Jumping = false;
-
-            if (hitV.collider != null && hitV.distance == 0f && Velocity.y <= 0f) {
-                OnGround = true;
-            }
-
-            
-            Debug.DrawRay(position, new Vector2(Movement.x, 0f), Color.cyan, Time.fixedDeltaTime, false);
-            Debug.DrawRay(position, new Vector2(0f, Movement.y), Color.red, Time.fixedDeltaTime, false);
+            Debug.DrawRay(rayPos, right, Color.cyan, Time.fixedDeltaTime);
         }
+        //Debug.DrawRay(position + Vector2.right * (7f / 16f), down, Color.cyan, Time.fixedDeltaTime);
+
+
+        // LEFT
+        Vector2 left = Vector2.right * Mathf.Min(0f, Velocity.x);
+        for (int i = 0; i <= 4; i++) {
+            Vector2 rayPos = new Vector2(position.x - (7f / 16f) - DetectionBufferH, position.y + (i / 4f * 24f / 16f));
+
+            RaycastHit2D hit = Physics2D.Raycast(rayPos, left, left.magnitude, mask);
+
+            if (hit.collider != null && hit.distance < left.magnitude) {
+                left = new Vector2(-hit.distance, 0f);
+#if UNITY_EDITOR
+                if (!GameHandler.FrameStepping || (GameHandler.FrameStepping && GameHandler.Step))
+#endif
+                    Velocity = new Vector2(0f, Velocity.y);
+            }
+
+            Debug.DrawRay(rayPos, left, Color.cyan, Time.fixedDeltaTime);
+        }
+
+        if (GameHandler.FrameStepping && !GameHandler.Step)
+            return;
+
+        Movement = up + down + right + left;
     }
 
     private float Convert(string hex, float multiply = 2f, bool divideByPixels = true) {
