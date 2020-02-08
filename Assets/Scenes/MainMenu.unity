@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use the arrow keys to move, space to jump, and fhfhfh to shoot.
+  m_text: 'Use the arrow keys to move, z to jump, and x to shoot.
 
     Navigate through each of the levels and reach the flag at the end in order to
     win. After you beat the second level, you have beaten the game!

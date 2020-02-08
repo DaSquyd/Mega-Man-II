@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
     const float PIXELS = 32f;
@@ -299,5 +300,12 @@ public class Player : MonoBehaviour {
             return (first + last) / PIXELS * multiply;
         else
             return first + last * multiply;
+    }
+    void OnTriggerEnter2D (Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Level2")
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 }
