@@ -211,7 +211,7 @@ PrefabInstance:
     - target: {fileID: 348099280482350737, guid: 98abf4f2df703d440968d300404b7d70,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 77.5
+      value: -3.78
       objectReference: {fileID: 0}
     - target: {fileID: 348099280482350737, guid: 98abf4f2df703d440968d300404b7d70,
         type: 3}
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 317254679}
   - component: {fileID: 317254678}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Level 2 Flag
   m_TagString: Level2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -576,7 +576,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ce3ebc6aa4f3b5e42aec1e5f0d889c08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
