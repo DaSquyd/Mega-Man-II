@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: b94284210cd196a449dd008ed6cff861
+guid: 10b207e329b6c504e93e60a8b039b54a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1070591538694909847
-    second: 32x32 Capsule Enemy_0
+      213: 1889507054589188252
+    second: Telly_0
   - first:
-      213: -4728706355377059030
-    second: 32x32 Capsule Enemy_1
+      213: 7183847126616704813
+    second: Telly_1
   - first:
-      213: -9016721850315551185
-    second: 32x32 Capsule Enemy_2
+      213: 3618107139790970219
+    second: Telly_2
   - first:
-      213: 4656474626773803369
-    second: 32x32 Capsule Enemy_4
+      213: 5603728752355009213
+    second: Telly_3
   - first:
-      213: -3426576911637858685
-    second: 32x32 Capsule Enemy_5
+      213: 8046312079266357564
+    second: Telly_4
   - first:
-      213: -2979793354408869639
-    second: 32x32 Capsule Enemy_6
+      213: 2459735894877047603
+    second: Telly_5
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -81,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,19 +93,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,127 +104,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 32x32 Capsule Enemy_0
+      name: Telly_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fb5ddf324b2a40498b153bc21f0e36b
-      internalID: -1070591538694909847
+      spriteID: 82e55847863e6a84aab1506c5dfa9956
+      internalID: 1889507054589188252
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 32x32 Capsule Enemy_1
+      name: Telly_1
       rect:
         serializedVersion: 2
-        x: 44
+        x: 16
         y: 0
-        width: 33
-        height: 33
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f1240a8178b6ba439d079a0db82d842
-      internalID: -4728706355377059030
+      spriteID: 1603b8b853d188b4f9c49a27ebc6ab26
+      internalID: 7183847126616704813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 32x32 Capsule Enemy_2
+      name: Telly_2
       rect:
         serializedVersion: 2
-        x: 88
+        x: 32
         y: 0
-        width: 33
-        height: 33
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9341f04f9e527c14184e3922ecce4267
-      internalID: -9016721850315551185
+      spriteID: 80fed6d066a736d4491b507cf1c1151f
+      internalID: 3618107139790970219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 32x32 Capsule Enemy_4
+      name: Telly_3
       rect:
         serializedVersion: 2
-        x: 132
+        x: 48
         y: 0
-        width: 33
-        height: 33
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69944d8b6185ea3448a2c51bb68edda1
-      internalID: 4656474626773803369
+      spriteID: 0e387cc9b3cfe594399dd2e65e7232c8
+      internalID: 5603728752355009213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 32x32 Capsule Enemy_5
+      name: Telly_4
       rect:
         serializedVersion: 2
-        x: 179
+        x: 64
         y: 0
-        width: 33
-        height: 33
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0448fe614160f764fa96a1b97c00a520
-      internalID: -3426576911637858685
+      spriteID: 64e04ff49eb109b4b92c551778f4c65c
+      internalID: 8046312079266357564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 32x32 Capsule Enemy_6
+      name: Telly_5
       rect:
         serializedVersion: 2
-        x: 223
+        x: 80
         y: 0
-        width: 33
-        height: 33
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff72c57a1a4f29749a9befb9c967ffc0
-      internalID: -2979793354408869639
+      spriteID: e9f0cbd38956dd04aaa60635947d6064
+      internalID: 2459735894877047603
       vertices: []
       indices: 
       edges: []

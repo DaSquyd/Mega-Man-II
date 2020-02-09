@@ -125,8 +125,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
+        x: 2
+        y: 62
         width: 16
         height: 16
       alignment: 0
@@ -136,7 +136,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26bfed01887e10246893a9460c60285a
+      spriteID: 20d114125cbbb0e499e3dd10b610f34a
       internalID: 6036338774718798887
       vertices: []
       indices: 
@@ -146,8 +146,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 48
+        x: 22
+        y: 62
         width: 16
         height: 16
       alignment: 0
@@ -157,7 +157,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fadb59616a54ae46871385e35e5a07b
+      spriteID: 00098d7f65cb26b4082e66586168765c
       internalID: -7195080446421228144
       vertices: []
       indices: 
@@ -167,8 +167,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 48
+        x: 42
+        y: 62
         width: 16
         height: 16
       alignment: 0
@@ -178,7 +178,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dcc3163872cb52b468d0045a778eb58a
+      spriteID: 41f1273df113fdb4c8e20fba81b05fb1
       internalID: 3682171555063928365
       vertices: []
       indices: 
@@ -188,8 +188,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 2
+        y: 42
         width: 16
         height: 16
       alignment: 0
@@ -199,7 +199,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d19152a222d42f847a27fd2be6052d10
+      spriteID: a2a00078320f8be44979f2c4d1fd6526
       internalID: 3457367800627939821
       vertices: []
       indices: 
@@ -209,8 +209,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_4
       rect:
         serializedVersion: 2
-        x: 16
-        y: 32
+        x: 22
+        y: 42
         width: 16
         height: 16
       alignment: 0
@@ -220,7 +220,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84740d881f0d4d44597b974aa32b20bb
+      spriteID: 2770069c1ec3d7246ac0fb57aed23afc
       internalID: -6550383763219443366
       vertices: []
       indices: 
@@ -230,8 +230,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_5
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 42
+        y: 42
         width: 16
         height: 16
       alignment: 0
@@ -241,7 +241,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8bf5de62c3922b4298bdac48caee06d
+      spriteID: a3b24f237e9defe4f8ff4f54a39c4790
       internalID: 2048463091038261526
       vertices: []
       indices: 
@@ -251,8 +251,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 16
+        x: 2
+        y: 22
         width: 16
         height: 16
       alignment: 0
@@ -262,7 +262,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 785b7f1b80c9c5b469377f7e9fe6d5a2
+      spriteID: 7ee538b8b7981e64ab141e3461ef8d39
       internalID: -6280931609678873145
       vertices: []
       indices: 
@@ -272,8 +272,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_7
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
+        x: 22
+        y: 22
         width: 16
         height: 16
       alignment: 0
@@ -283,7 +283,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2914468be8e49aa4699729681e4ae68e
+      spriteID: 787bca29bfc524c4bb7a02f0c4062047
       internalID: -9027954634944192095
       vertices: []
       indices: 
@@ -293,8 +293,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_8
       rect:
         serializedVersion: 2
-        x: 32
-        y: 16
+        x: 42
+        y: 22
         width: 16
         height: 16
       alignment: 0
@@ -304,7 +304,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae378544add68ff44896b54c7749b9dd
+      spriteID: 6b791d582e0f5674aa1bce4e9886b33e
       internalID: 981188356861804492
       vertices: []
       indices: 
@@ -314,8 +314,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 2
+        y: 2
         width: 16
         height: 16
       alignment: 0
@@ -325,7 +325,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78a9af4126996914fa89476fafb5b300
+      spriteID: 8ad5f82b927ed07488d1b61194d6967f
       internalID: 454846048917111607
       vertices: []
       indices: 
@@ -335,8 +335,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_10
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
+        x: 22
+        y: 2
         width: 16
         height: 16
       alignment: 0
@@ -346,7 +346,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aceb1f06cfb27c94ab28fd3e2f24ce7b
+      spriteID: 27fb02ca44ad73a44bdab0cc0c431262
       internalID: 7495263893534182690
       vertices: []
       indices: 
@@ -356,8 +356,8 @@ TextureImporter:
       name: Heatman Stage Tilemap_11
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 42
+        y: 2
         width: 16
         height: 16
       alignment: 0
@@ -367,7 +367,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de50d6cd7ee9af84582950d3af924342
+      spriteID: fbdc7862a3976654198b48847c2a99bb
       internalID: 4048487640025897204
       vertices: []
       indices: 

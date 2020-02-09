@@ -48,6 +48,10 @@ public class Player : MonoBehaviour {
     public bool Jumping;
     public bool Shooting;
 
+    public Pellet pelletPrefab;
+
+    public List<Pellet> pellets = new List<Pellet>();
+
     // Private Vars
     int oldDir;
     int dirLock;
@@ -57,11 +61,17 @@ public class Player : MonoBehaviour {
     bool accelerating;
     public bool decelerating;
 
+    public bool invulnerable;
+    int invulnCount;
+
+    int health = 10;
+
     int shootCount;
 
     SpriteRenderer spriteRenderer;
     Animator animator;
     BoxCollider2D col;
+
 
     private void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -80,11 +90,37 @@ public class Player : MonoBehaviour {
 
 
     private void FixedUpdate() {
+        if (transform.position.y < -7) {
+            health = 0;
+            GameHandler.healthBar.fillAmount = health / 10f;
+            Destroy(gameObject);
+        }
+
+        if (invulnCount < 120) {
+            invulnCount++;
+        } else {
+            invulnerable = false;
+        }
+        if (invulnCount >= 30) {
+            Stunned = false;
+        }
 
         Controls();
 
         Move();
 
+        if (Facing == DirectionH.RIGHT)
+            spriteRenderer.flipX = false;
+
+        if (Facing == DirectionH.LEFT)
+            spriteRenderer.flipX = true;
+
+        animator.SetBool("Running", maxSpeed);
+        animator.SetBool("OnGround", OnGround);
+        animator.SetBool("Shooting", Shooting);
+        //animator.SetBool("Climbing", Climbing);
+        animator.SetBool("Invulnerable", invulnerable);
+        animator.SetBool("Stunned", Stunned);
 
         if (GameHandler.FrameStepping && !GameHandler.Step)
             return;
@@ -147,14 +183,14 @@ public class Player : MonoBehaviour {
 
         Velocity = new Vector2(dir * moveSpeed, Velocity.y);
 
-        if (OnGround && GameHandler.vc.A.Press) {
+        if (OnGround && GameHandler.vc.Jump.Press) {
             Velocity = new Vector2(Velocity.x, Convert(JumpPower));
             Debug.Log(Convert(JumpPower));
             OnGround = false;
             Jumping = true;
         }
 
-        if (Movement.y > Convert(MinJump) && !GameHandler.vc.A.Value && Jumping) {
+        if (Movement.y > Convert(MinJump) && !GameHandler.vc.Jump.Value && Jumping) {
             Debug.Log("Jump Cancelled");
             Movement = new Vector2(Movement.x, Convert(JumpCancelSpeed));
             Velocity = new Vector2(Velocity.x, Convert(JumpCancelSpeed));
@@ -165,7 +201,21 @@ public class Player : MonoBehaviour {
             Jumping = false;
 
 
-        if (GameHandler.vc.B.Press) {
+        List<Pellet> removal = new List<Pellet>();
+
+        foreach (Pellet p in pellets) {
+            if (p == null)
+                removal.Add(p);
+        }
+        foreach (Pellet p in removal) {
+            pellets.Remove(p);
+        }
+
+        if (GameHandler.vc.Shoot.Press && pellets.Count < 3) {
+            Pellet pellet = Instantiate(pelletPrefab, transform.position + new Vector3(Facing == DirectionH.RIGHT ? 1f : -1f, 0.77f, 0f), Quaternion.Euler(0f, Facing == DirectionH.RIGHT ? 0f : 180f, 0f));
+
+            pellets.Add(pellet);
+
             Shooting = true;
             shootCount = 0;
         }
@@ -183,18 +233,6 @@ public class Player : MonoBehaviour {
             Facing = DirectionH.RIGHT;
         if (Velocity.x < 0f)
             Facing = DirectionH.LEFT;
-
-        if (Facing == DirectionH.RIGHT)
-            spriteRenderer.flipX = false;
-
-        if (Facing == DirectionH.LEFT)
-            spriteRenderer.flipX = true;
-
-
-        animator.SetBool("Running", maxSpeed);
-        animator.SetBool("OnGround", OnGround);
-        animator.SetBool("Shooting", Shooting);
-        //animator.SetBool("Climbing", Climbing);
     }
 
     void Move() {
@@ -216,10 +254,7 @@ public class Player : MonoBehaviour {
 
             if (hit.collider != null && hit.distance < up.magnitude) {
                 up = new Vector2(0f, hit.distance);
-#if UNITY_EDITOR
-                if (!GameHandler.FrameStepping || (GameHandler.FrameStepping && GameHandler.Step))
-#endif
-                    Velocity = new Vector2(Velocity.x, -Convert(Gravity));
+                Velocity = new Vector2(Velocity.x, -Convert(Gravity));
             }
 
             Debug.DrawRay(rayPos, up, Color.cyan, Time.fixedDeltaTime);
@@ -236,13 +271,13 @@ public class Player : MonoBehaviour {
             if (hit.collider != null && hit.distance < down.magnitude) {
                 down = new Vector2(0f, -hit.distance);
                 OnGround = true;
-#if UNITY_EDITOR
-                if (!GameHandler.FrameStepping || (GameHandler.FrameStepping && GameHandler.Step))
-#endif
-                    Velocity = new Vector2(Velocity.x, 0f);
+                Velocity = new Vector2(Velocity.x, 0f);
             }
 
             Debug.DrawRay(rayPos, down, Color.cyan);
+            if (i == 4) {
+                //Debug.Log("y pos: " + rayPos.y);
+            }
         }
 
 
@@ -255,10 +290,7 @@ public class Player : MonoBehaviour {
 
             if (hit.collider != null && hit.distance < right.magnitude) {
                 right = new Vector2(hit.distance, 0f);
-#if UNITY_EDITOR
-                if (!GameHandler.FrameStepping || (GameHandler.FrameStepping && GameHandler.Step))
-#endif
-                    Velocity = new Vector2(0f, Velocity.y);
+                Velocity = new Vector2(0f, Velocity.y);
             }
 
             Debug.DrawRay(rayPos, right, Color.cyan, Time.fixedDeltaTime);
@@ -275,10 +307,7 @@ public class Player : MonoBehaviour {
 
             if (hit.collider != null && hit.distance < left.magnitude) {
                 left = new Vector2(-hit.distance, 0f);
-#if UNITY_EDITOR
-                if (!GameHandler.FrameStepping || (GameHandler.FrameStepping && GameHandler.Step))
-#endif
-                    Velocity = new Vector2(0f, Velocity.y);
+                Velocity = new Vector2(0f, Velocity.y);
             }
 
             Debug.DrawRay(rayPos, left, Color.cyan, Time.fixedDeltaTime);
@@ -301,10 +330,36 @@ public class Player : MonoBehaviour {
         else
             return first + last * multiply;
     }
-    void OnTriggerEnter2D (Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Level2")
-        {
+    void OnTriggerStay2D(Collider2D collision) {
+
+        if (collision.tag == "Enemy" && !invulnerable) {
+            if (collision.transform.position.x - transform.position.x > 0) {
+                Facing = DirectionH.RIGHT;
+                Velocity = new Vector2(-Convert("00.80"), Convert("01.00"));
+            } else {
+                Facing = DirectionH.LEFT;
+                Velocity = new Vector2(Convert("00.80"), Convert("01.00"));
+            }
+            Stunned = true;
+            invulnerable = true;
+            invulnCount = 0;
+
+            health--;
+
+            GameHandler.healthBar.fillAmount = health / 10f;
+
+            if (health == 0) {
+                Destroy(gameObject);
+            }
+        }
+
+        if (collision.tag == "Lava" && !invulnerable) {
+            health = 0;
+            GameHandler.healthBar.fillAmount = health / 10f;
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.tag == "Level2") {
             SceneManager.LoadScene(2);
         }
     }

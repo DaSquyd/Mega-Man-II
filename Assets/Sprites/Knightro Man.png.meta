@@ -38,6 +38,9 @@ TextureImporter:
   - first:
       213: -7584894195473488556
     second: Knightro Man_Climbing_2
+  - first:
+      213: 4126674749647418957
+    second: Knightro Man_Hit
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -369,6 +372,27 @@ TextureImporter:
       bones: []
       spriteID: ad7d3585bb08071499d7eed0e5f59721
       internalID: -7584894195473488556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knightro Man_Hit
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.1875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e829a7b84b204a243ab877cbadd4e5bd
+      internalID: 4126674749647418957
       vertices: []
       indices: 
       edges: []

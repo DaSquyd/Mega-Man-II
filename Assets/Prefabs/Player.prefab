@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 348099280482350739}
   - component: {fileID: 348099280482350738}
   - component: {fileID: 348099280482350749}
+  - component: {fileID: 2254283943999165126}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -97,7 +98,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.75}
+  m_Offset: {x: 0, y: 0.77}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.1875}
@@ -108,7 +109,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.5}
+  m_Size: {x: 0.8752, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &348099280482350738
 MonoBehaviour:
@@ -122,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54dc6d589a703144386c554b536075b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hit: 0
   Velocity: {x: 0, y: 0}
   Movement: {x: 0, y: 0}
   Facing: 1
@@ -141,9 +143,13 @@ MonoBehaviour:
   OnGround: 0
   Jumping: 0
   Shooting: 0
+  pelletPrefab: {fileID: 2527331888001158424, guid: 1b186ab95e5b3194885dbe1443bddcc2,
+    type: 3}
+  pellets: []
   maxSpeed: 0
   decelCount: 0
   decelerating: 0
+  invulnerable: 0
 --- !u!95 &348099280482350749
 Animator:
   serializedVersion: 3
@@ -163,3 +169,24 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &2254283943999165126
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 348099280482350748}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
