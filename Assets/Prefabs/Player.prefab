@@ -142,7 +142,7 @@ MonoBehaviour:
   OnGround: 0
   Jumping: 0
   Shooting: 0
-  dieParticle: {fileID: 2584654485321737698, guid: dd8730ded0e626445b67f3c2d7fa8b7a,
+  dieParticle: {fileID: 754387531752010004, guid: 33713c2808aea9b42aace2477edaafeb,
     type: 3}
   pelletPrefab: {fileID: 2527331888001158424, guid: 1b186ab95e5b3194885dbe1443bddcc2,
     type: 3}

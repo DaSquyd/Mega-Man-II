@@ -143,3 +143,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 0.5
   dieAudio: {fileID: 0}
+  particle: {fileID: 3769444289043720710, guid: 229ef2c3a59013a44984f4e50ba2c0b9,
+    type: 3}

@@ -7,6 +7,8 @@ public class Telly : MonoBehaviour {
     public float Speed;
     public AudioSource dieAudio;
 
+    public ParticleSystem particle;
+
     Camera camera;
     Player player;
 

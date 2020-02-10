@@ -69,7 +69,7 @@ public class Player : MonoBehaviour {
     public bool invulnerable;
     int invulnCount;
 
-    int health = 1;
+    int health = 10;
 
     int shootCount;
 
@@ -106,14 +106,12 @@ public class Player : MonoBehaviour {
         Debug.Log("Gravity: " + Convert(Gravity, 1f, false));
         */
     }
-
-#if UNITY_EDITOR
+    
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
             SceneManager.LoadScene(2);
         }
     }
-#endif
 
     private void FixedUpdate() {
         if (Camera.main.transform.position.y - transform.position.y > 8) {

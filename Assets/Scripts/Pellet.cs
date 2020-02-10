@@ -17,6 +17,8 @@ public class Pellet : MonoBehaviour {
 
         GameHandler.PlayAudio(GameHandler.enemyDieAudio);
 
+        Instantiate(collision.GetComponent<Telly>().particle, collision.transform.position + new Vector3(0f, 0f, -5f), Quaternion.Euler(90f, 0f, 0f));
+
         Destroy(collision.gameObject);
         Destroy(gameObject);
     }
