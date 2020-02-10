@@ -15,6 +15,8 @@ public class Pellet : MonoBehaviour {
         if (collision.tag != "Enemy")
             return;
 
+        GameHandler.PlayAudio(GameHandler.enemyDieAudio);
+
         Destroy(collision.gameObject);
         Destroy(gameObject);
     }

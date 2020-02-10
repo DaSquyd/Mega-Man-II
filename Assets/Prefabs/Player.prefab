@@ -123,7 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54dc6d589a703144386c554b536075b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hit: 0
   Velocity: {x: 0, y: 0}
   Movement: {x: 0, y: 0}
   Facing: 1
@@ -143,6 +142,8 @@ MonoBehaviour:
   OnGround: 0
   Jumping: 0
   Shooting: 0
+  dieParticle: {fileID: 2584654485321737698, guid: dd8730ded0e626445b67f3c2d7fa8b7a,
+    type: 3}
   pelletPrefab: {fileID: 2527331888001158424, guid: 1b186ab95e5b3194885dbe1443bddcc2,
     type: 3}
   pellets: []

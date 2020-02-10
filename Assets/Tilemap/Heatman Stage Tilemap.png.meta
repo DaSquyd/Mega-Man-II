@@ -38,6 +38,9 @@ TextureImporter:
   - first:
       213: 4048487640025897204
     second: Heatman Stage Tilemap_11
+  - first:
+      213: 147361257213583813
+    second: Heatman Stage Tilemap_12
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -99,7 +102,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -111,7 +114,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,11 +129,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 62
+        y: 82
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -147,11 +150,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 22
-        y: 62
+        y: 82
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,11 +171,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 62
+        y: 82
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -189,11 +192,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 42
+        y: 62
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -210,11 +213,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 22
-        y: 42
+        y: 62
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -231,11 +234,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 42
+        y: 62
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -252,11 +255,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 22
+        y: 42
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -273,11 +276,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 22
-        y: 22
+        y: 42
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -294,11 +297,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
-        y: 22
+        y: 42
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -315,11 +318,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2
-        y: 2
+        y: 22
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -336,11 +339,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 22
-        y: 2
+        y: 22
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -357,6 +360,27 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 42
+        y: 22
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbdc7862a3976654198b48847c2a99bb
+      internalID: 4048487640025897204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Heatman Stage Tilemap_12
+      rect:
+        serializedVersion: 2
+        x: 42
         y: 2
         width: 16
         height: 16
@@ -367,8 +391,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbdc7862a3976654198b48847c2a99bb
-      internalID: 4048487640025897204
+      spriteID: f03d446652406d140b91b8ea74990940
+      internalID: 147361257213583813
       vertices: []
       indices: 
       edges: []

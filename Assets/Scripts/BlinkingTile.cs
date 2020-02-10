@@ -44,6 +44,9 @@ public class BlinkingTile : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+
+        player = GameHandler.player;
+
         if (player == null)
             return;
 

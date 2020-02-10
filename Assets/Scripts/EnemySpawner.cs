@@ -13,13 +13,18 @@ public class EnemySpawner : MonoBehaviour {
 
     int count;
 
+    public static bool Despawned;
+
     private void FixedUpdate() {
+
         onScreen = new List<Transform>();
-        foreach (Transform t in positions) {
-            if (Mathf.Abs(GameHandler.camera.transform.position.x - t.position.x) <= 8) {
-                onScreen.Add(t);
+
+        if (GameHandler.camera != null)
+            foreach (Transform t in positions) {
+                if (Mathf.Abs(GameHandler.camera.transform.position.x - t.position.x) <= 8) {
+                    onScreen.Add(t);
+                }
             }
-        }
 
         List<GameObject> removal = new List<GameObject>();
         foreach (GameObject go in enemies) {
@@ -30,17 +35,22 @@ public class EnemySpawner : MonoBehaviour {
             enemies.Remove(go);
         }
         if (removal.Count > 0) {
-            count = 0;
+            count = 60;
         }
 
         if (count < 180) {
             count++;
         }
 
+        if (Despawned) {
+            count = 120;
+            Despawned = false;
+        }
+
         if (onScreen.Count == 0)
             return;
 
-        if (count >= 90 && enemies.Count < 3) {
+        if (count >= 120 && enemies.Count < 3) {
             GameObject go = Instantiate(enemy, onScreen[(int) Mathf.Floor(Random.value * onScreen.Count)].position, new Quaternion());
 
             enemies.Add(go);

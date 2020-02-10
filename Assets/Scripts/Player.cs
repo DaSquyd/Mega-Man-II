@@ -23,6 +23,9 @@ public class Player : MonoBehaviour {
         DOWN
     }
 
+    public static Player player;
+
+
     // Public Vars
     public Vector2 Velocity;
     public Vector2 Movement;
@@ -48,6 +51,8 @@ public class Player : MonoBehaviour {
     public bool Jumping;
     public bool Shooting;
 
+    public ParticleSystem dieParticle;
+
     public Pellet pelletPrefab;
 
     public List<Pellet> pellets = new List<Pellet>();
@@ -64,20 +69,33 @@ public class Player : MonoBehaviour {
     public bool invulnerable;
     int invulnCount;
 
-    int health = 10;
+    int health = 1;
 
     int shootCount;
+
+    string lastGroundTag;
 
     SpriteRenderer spriteRenderer;
     Animator animator;
     BoxCollider2D col;
 
+    AudioSource hitAudio;
+    AudioSource shootAudio;
 
     private void Start() {
+        if (GameHandler.handler == null) {
+            SceneManager.LoadScene(0);
+        }
+
+        player = this;
+
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         col = GetComponent<BoxCollider2D>();
 
+        GetComponents<AudioSource>();
+
+        /*
         Debug.Log("Ground Speed: " + Convert(GroundSpeed, 1f, false));
         Debug.Log("Air Speed: " + Convert(AirSpeed, 1f, false));
         Debug.Log("Jump Power: " + Convert(JumpPower, 1f, true));
@@ -86,14 +104,22 @@ public class Player : MonoBehaviour {
         Debug.Log("Max Fall Speed: " + Convert(MaxFallSpeed, 1f, false));
         Debug.Log("Climb Speed: " + Convert(ClimbSpeed, 1f, false));
         Debug.Log("Gravity: " + Convert(Gravity, 1f, false));
+        */
     }
 
+#if UNITY_EDITOR
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            SceneManager.LoadScene(2);
+        }
+    }
+#endif
 
     private void FixedUpdate() {
-        if (transform.position.y < -7) {
+        if (Camera.main.transform.position.y - transform.position.y > 8) {
             health = 0;
-            GameHandler.healthBar.fillAmount = health / 10f;
-            Destroy(gameObject);
+            GameHandler.healthBarImage.fillAmount = health / 10f;
+            Die();
         }
 
         if (invulnCount < 120) {
@@ -181,17 +207,22 @@ public class Player : MonoBehaviour {
 
         oldDir = dir;
 
-        Velocity = new Vector2(dir * moveSpeed, Velocity.y);
+        float belt = 0;
+
+        if (lastGroundTag == "Belt Left" && OnGround)
+            belt = -0.05f;
+        else if (lastGroundTag == "Belt Right" && OnGround)
+            belt = 0.05f;
+
+        Velocity = new Vector2(dir * moveSpeed + belt, Velocity.y);
 
         if (OnGround && GameHandler.vc.Jump.Press) {
             Velocity = new Vector2(Velocity.x, Convert(JumpPower));
-            Debug.Log(Convert(JumpPower));
             OnGround = false;
             Jumping = true;
         }
 
         if (Movement.y > Convert(MinJump) && !GameHandler.vc.Jump.Value && Jumping) {
-            Debug.Log("Jump Cancelled");
             Movement = new Vector2(Movement.x, Convert(JumpCancelSpeed));
             Velocity = new Vector2(Velocity.x, Convert(JumpCancelSpeed));
             Jumping = false;
@@ -218,6 +249,9 @@ public class Player : MonoBehaviour {
 
             Shooting = true;
             shootCount = 0;
+
+            GameHandler.PlayAudio(GameHandler.playerShootAudio);
+
         }
 
         if (Shooting) {
@@ -229,14 +263,14 @@ public class Player : MonoBehaviour {
             }
         }
 
-        if (Velocity.x > 0f)
+        if (dir == 1)
             Facing = DirectionH.RIGHT;
-        if (Velocity.x < 0f)
+        if (dir == -1)
             Facing = DirectionH.LEFT;
     }
 
     void Move() {
-        LayerMask mask = LayerMask.GetMask("Ground");
+        LayerMask mask = LayerMask.GetMask("Ground", "Belt Left", "Belt Right");
 
         OnGround = false;
 
@@ -271,6 +305,7 @@ public class Player : MonoBehaviour {
             if (hit.collider != null && hit.distance < down.magnitude) {
                 down = new Vector2(0f, -hit.distance);
                 OnGround = true;
+                lastGroundTag = hit.collider.tag;
                 Velocity = new Vector2(Velocity.x, 0f);
             }
 
@@ -346,21 +381,36 @@ public class Player : MonoBehaviour {
 
             health--;
 
-            GameHandler.healthBar.fillAmount = health / 10f;
+            GameHandler.healthBarImage.fillAmount = health / 10f;
 
             if (health == 0) {
-                Destroy(gameObject);
+                Die();
+            } else {
+                GameHandler.PlayAudio(GameHandler.playerHitAudio);
             }
         }
 
         if (collision.tag == "Lava" && !invulnerable) {
             health = 0;
-            GameHandler.healthBar.fillAmount = health / 10f;
-            Destroy(gameObject);
+            GameHandler.healthBarImage.fillAmount = health / 10f;
+            Die();
         }
 
         if (collision.gameObject.tag == "Level2") {
             SceneManager.LoadScene(2);
         }
+
+        if (collision.tag == "Win") {
+            GameHandler.Win();
+            Destroy(gameObject);
+        }
+    }
+
+    public void Die() {
+        Instantiate(dieParticle, transform.position + new Vector3(0f, 0.77f, -5f), Quaternion.Euler(90f, 0f, 0f));
+
+        Destroy(gameObject);
+        GameHandler.PlayAudio(GameHandler.playerDieAudio);
+        GameHandler.Lose();
     }
 }
